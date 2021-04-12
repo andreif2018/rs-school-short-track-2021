@@ -33,7 +33,6 @@ function minesweeper(matrix) {
       result[i][j] = counter;
     }
   }
-  console.log(result);
 }
 
 module.exports = minesweeper;
