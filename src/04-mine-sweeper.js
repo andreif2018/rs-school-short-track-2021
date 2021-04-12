@@ -24,15 +24,61 @@
 function minesweeper(matrix) {
   const result = [];
   for (let i = 0; i < matrix.length; i++) {
-    let counter = 0;
+    const line = [];
     for (let j = 0; j < matrix[0].length; j++) {
-      if (matrix[j][j + 1]) counter += 1;
-      if (matrix[i][j - 1]) counter += 1;
-      if (matrix[i - 1][j]) counter += 1;
-      if (matrix[i + 1][j]) counter += 1;
+      line.push(undefined);
+    }
+    result.push(line);
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[0].length; j++) {
+      let counter = 0;
+      if (i === 0) {
+        if (j > 0) {
+          if (matrix[i][j - 1]) counter += 1;
+          if (matrix[i + 1][j - 1]) counter += 1;
+          if (matrix[i + 1][j]) counter += 1;
+          if (j < matrix[0].length - 1) {
+            if (matrix[i][j + 1]) counter += 1;
+            if (matrix[i + 1][j + 1]) counter += 1;
+          }
+        } else {
+          if (matrix[i][j + 1]) counter += 1;
+          if (matrix[i + 1][j + 1]) counter += 1;
+          if (matrix[i + 1][j]) counter += 1;
+        }
+      } else if (i === (matrix.length - 1)) {
+        if (j > 0) {
+          if (matrix[i][j - 1]) counter += 1;
+          if (matrix[i - 1][j - 1]) counter += 1;
+          if (matrix[i - 1][j]) counter += 1;
+          if (j < (matrix[0].length - 1)) {
+            if (matrix[i][j + 1]) counter += 1;
+            if (matrix[i - 1][j + 1]) counter += 1;
+          }
+        } else {
+          if (matrix[i][j + 1]) counter += 1;
+          if (matrix[i - 1][j + 1]) counter += 1;
+          if (matrix[i - 1][j]) counter += 1;
+        }
+      } else {
+        if (matrix[i - 1][j]) counter += 1;
+        if (matrix[i + 1][j]) counter += 1;
+        if (j > 0) {
+          if (matrix[i][j - 1]) counter += 1;
+          if (matrix[i - 1][j - 1]) counter += 1;
+          if (matrix[i + 1][j - 1]) counter += 1;
+        }
+        if (j < (matrix[0].length - 1)) {
+          if (matrix[i][j + 1]) counter += 1;
+          if (matrix[i - 1][j + 1]) counter += 1;
+          if (matrix[i + 1][j + 1]) counter += 1;
+        }
+      }
       result[i][j] = counter;
     }
   }
+  return result;
 }
 
 module.exports = minesweeper;
